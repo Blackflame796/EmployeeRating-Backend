@@ -5,13 +5,12 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sess
 from app.config import settings
 
 # Формирование строк подключения из настроек
-async_connect_link = f"postgresql+asyncpg://{settings.DB_USER}:{settings.DB_PASSWORD}@{settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}"
-sync_connect_link = f"postgresql://{settings.DB_USER}:{settings.DB_PASSWORD}@{settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}"
+connect_link = f"postgresql+asyncpg://{settings.DB_USER}:{settings.DB_PASSWORD}@{settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}"
 
 # Настройка асинхронного движка SQLAlchemy
 # NullPool используется для избежания проблем с пулом соединений в асинхронной среде
 engine = create_async_engine(
-    async_connect_link,
+    connect_link,
     echo=False,
     poolclass=NullPool,
 )
